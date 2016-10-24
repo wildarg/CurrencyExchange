@@ -1,15 +1,12 @@
-package com.wild.currencyexchange;
-
-import com.wild.currencyexchange.domain.Currency;
-import com.wild.currencyexchange.domain.CurrencyExchanger;
-import com.wild.currencyexchange.domain.RateNotFoundException;
+package com.wild.currencyexchange.domain;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Locale;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 // Created by Wild on 24.10.2016.
 
