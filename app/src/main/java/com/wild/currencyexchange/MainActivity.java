@@ -1,9 +1,16 @@
 package com.wild.currencyexchange;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.wild.currencyexchange.services.RateRefreshService;
 
 import java.io.IOException;
 
@@ -12,23 +19,28 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bindService(new Intent(this, RateRefreshService.class), connection, BIND_AUTO_CREATE);
     }
 
-    private void showFail(Throwable t) {
-        t.printStackTrace();
-        Toast.makeText(this, "fail: " + t, Toast.LENGTH_SHORT).show();
-    }
-
-    private void showResponse(Response<ResponseBody> response) {
-        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
-        try {
-            Log.d("RESPONSE", response.body().string());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Override
+    protected void onDestroy() {
+        unbindService(connection);
+        super.onDestroy();
     }
 }

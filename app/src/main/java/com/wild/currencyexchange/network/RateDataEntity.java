@@ -12,25 +12,25 @@ import java.util.List;
 @Root(name = "gesmes:Envelope", strict=false)
 public class RateDataEntity {
     @Element(name = "Cube")
-    RootCube cube;
+    public RootCube cube;
 
     public static class RootCube {
         @Element(name = "Cube")
-        TimeCube cube;
+        public TimeCube cube;
     }
 
     public static class TimeCube {
         @Attribute(name = "time")
-        String time;
+        public String time;
         @ElementList(inline = true)
-        List<RateCube> rates;
+        public List<RateCube> rates;
     }
 
     @Root(name = "Cube")
     public static class RateCube {
         @Attribute(name = "currency")
-        String currency;
+        public String currency;
         @Attribute(name = "rate")
-        float rate;
+        public float rate;
     }
 }

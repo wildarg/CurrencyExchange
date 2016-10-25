@@ -6,5 +6,12 @@ public enum Currency {
     USD,
     EUR,
     GBP,
-    RUB
+    RUB;
+
+    public static Currency getFromName(String name) {
+        for (Currency c: values())
+            if (c.name().equals(name))
+                return c;
+        return null;
+    }
 }
