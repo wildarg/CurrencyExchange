@@ -11,7 +11,11 @@
     tools:context="com.wild.currencyexchange.MainActivity">
 
     <TextView
+        android:id="@+id/text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Hello World!"
+        android:padding="8dp"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"/>
 </RelativeLayout>
