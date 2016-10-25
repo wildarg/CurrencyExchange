@@ -1,21 +1,13 @@
 package com.wild.currencyexchange;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.wild.currencyexchange.services.RateRefreshService;
-
-import java.io.IOException;
-
-import okhttp3.ResponseBody;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
