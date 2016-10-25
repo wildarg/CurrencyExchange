@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CurrencyExchange</string>
+    <string name="input_hint">0</string>
 </resources>

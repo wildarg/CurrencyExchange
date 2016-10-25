@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/currency_marker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:textSize="42sp"
+        tools:text="EUR"/>
+
+    <EditText
+        android:id="@+id/value_editor"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:paddingRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:gravity="end"
+        android:inputType="number"
+        android:textSize="42sp"
+        android:hint="@string/input_hint"/>
+
+</LinearLayout>

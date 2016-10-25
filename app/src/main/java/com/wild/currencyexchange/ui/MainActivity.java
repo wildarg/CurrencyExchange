@@ -1,4 +1,4 @@
-package com.wild.currencyexchange;
+package com.wild.currencyexchange.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.wild.currencyexchange.R;
+import com.wild.currencyexchange.domain.Currency;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return new CurrencyFragment();
+            return CurrencyInputFragment.newInstance(Currency.values()[position]);
         }
 
         @Override
