@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/usd_bottom">
 
     <TextView
+        android:id="@+id/currency_marker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start|center_vertical"
+        android:layout_centerVertical="true"
         android:paddingLeft="16dp"
-        android:textSize="42sp"
-        android:text="EUR"/>
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="@dimen/textPrimarySize"
+        tools:text="EUR" />
 
     <TextView
+        android:id="@+id/value_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|center_vertical"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:paddingRight="16dp"
-        android:textSize="42sp"
-        android:text="1000"/>
+        android:textSize="@dimen/textPrimarySize"
+        android:textColor="@color/colorTextPrimary"
+        android:textColorHint="@color/colorTextHint"
+        android:hint="0"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/rate_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/value_text"
+        android:paddingRight="16dp"
+        android:textSize="@dimen/textSecondarySize"
+        android:textColor="@color/colorTextPrimary"
+        tools:text="1$ = 65 р"
+        android:visibility="visible"/>
+
+</RelativeLayout>

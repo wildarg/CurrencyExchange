@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/usd_top">
 
     <TextView
         android:id="@+id/currency_marker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
         android:paddingLeft="16dp"
-        android:textSize="42sp"
+        android:textSize="@dimen/textPrimarySize"
+        android:textColor="@color/colorTextPrimary"
         tools:text="EUR"/>
 
     <EditText
         android:id="@+id/value_editor"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
         android:paddingRight="16dp"
         android:layout_marginLeft="16dp"
         android:gravity="end"
-        android:inputType="number"
-        android:textSize="42sp"
+        android:inputType="numberDecimal"
+        android:digits="0123456789.,"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="@dimen/textPrimarySize"
+        android:textColorHint="@color/colorTextHint"
+        android:background="@null"
+        android:imeOptions="flagNoExtractUi"
+        android:maxLength="6"
         android:hint="@string/input_hint"/>
 
-</LinearLayout>
+</FrameLayout>

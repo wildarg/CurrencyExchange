@@ -13,6 +13,8 @@ import com.wild.currencyexchange.domain.Currency;
 import com.wild.currencyexchange.domain.CurrencyExchanger;
 import com.wild.currencyexchange.network.Api;
 import com.wild.currencyexchange.network.RateDataEntity;
+import com.wild.currencyexchange.utils.BroadcastUtils;
+import com.wild.currencyexchange.utils.Constants;
 
 import java.util.List;
 import java.util.Timer;
@@ -29,7 +31,7 @@ public class RateRefreshService extends Service {
     public void onCreate() {
         super.onCreate();
         timer = new Timer();
-        timer.schedule(new RateRefreshTask(), 1000, 5000);
+        timer.schedule(new RateRefreshTask(), 1, Constants.REFRESH_TIME_IN_MILLIS);
     }
 
     @Override
@@ -75,6 +77,7 @@ public class RateRefreshService extends Service {
                 if (currency != null)
                     ex.setRate(currency, c.rate);
             }
+            BroadcastUtils.notifyRatesChanged(getApplicationContext());
         }
     }
 }

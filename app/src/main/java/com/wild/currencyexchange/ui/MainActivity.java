@@ -1,18 +1,20 @@
 package com.wild.currencyexchange.ui;
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.wild.currencyexchange.R;
 import com.wild.currencyexchange.domain.Currency;
+import com.wild.currencyexchange.services.RateRefreshService;
+import com.wild.currencyexchange.utils.BroadcastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +31,20 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.dst_pager_indicator)
     CircleIndicator dstIndicator;
 
+    private ServiceConnection conn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+    };
+
+    private Currency currency = Currency.USD;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +53,31 @@ public class MainActivity extends AppCompatActivity {
 
         srcPager.setAdapter(new CurrencyPageAdapter(getSupportFragmentManager()));
         srcIndicator.setViewPager(srcPager);
+        srcPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position) {
+                setCurrentCurrency(Currency.values()[position]);
+            }
+        });
+        dstPager.setAdapter(new CurrencyExchangePageAdapter(getSupportFragmentManager()));
+        dstIndicator.setViewPager(dstPager);
+
+        bindService(new Intent(this, RateRefreshService.class), conn, BIND_AUTO_CREATE);
+    }
+
+    private void setCurrentCurrency(Currency c) {
+        this.currency = c;
+        BroadcastUtils.notifyCurrencyChanged(this, currency);
+    }
+
+    public Currency getCurrentCurrency() {
+        return currency;
+    }
+
+    @Override
+    protected void onDestroy() {
+        unbindService(conn);
+        super.onDestroy();
     }
 
     private class CurrencyPageAdapter extends FragmentPagerAdapter {
@@ -56,12 +97,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private class CurrencyExchangePageAdapter extends FragmentPagerAdapter {
 
-    public static class CurrencyFragment extends Fragment {
-        @Nullable
+        public CurrencyExchangePageAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
         @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.currency_layout, container, false);
+        public Fragment getItem(int position) {
+            return CurrencyExchangeFragment.newInstance(Currency.values()[position]);
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
         }
     }
 }

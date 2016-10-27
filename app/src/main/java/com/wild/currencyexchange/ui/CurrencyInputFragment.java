@@ -5,8 +5,7 @@ package com.wild.currencyexchange.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,8 @@ import com.wild.currencyexchange.R;
 import com.wild.currencyexchange.di.ModelFactory;
 import com.wild.currencyexchange.domain.Currency;
 import com.wild.currencyexchange.domain.CurrencyRepo;
-import com.wild.currencyexchange.utils.SimpleTextWatcher;
+import com.wild.currencyexchange.utils.BroadcastUtils;
+import com.wild.currencyexchange.utils.MoneyTextWatcher;
 
 import java.util.Locale;
 
@@ -31,6 +31,8 @@ public class CurrencyInputFragment extends Fragment {
     private CurrencyRepo repo;
     private Currency currency;
 
+    @BindView(R.id.layout)
+    View layout;
     @BindView(R.id.value_editor)
     EditText valueEditor;
     @BindView(R.id.currency_marker)
@@ -64,12 +66,14 @@ public class CurrencyInputFragment extends Fragment {
         ButterKnife.bind(this, view);
         setCurrentValue(repo.get(currency));
         currencyMarker.setText(currency.name());
-        valueEditor.addTextChangedListener(new SimpleTextWatcher() {
+        valueEditor.addTextChangedListener(new MoneyTextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 repo.set(currency, getCurrentValue());
+                BroadcastUtils.notifyValueChanged(getContext(), currency);
             }
         });
+        layout.setBackgroundResource(currency.getBkgTop());
     }
 
     private void setCurrentValue(float v) {
@@ -78,7 +82,8 @@ public class CurrencyInputFragment extends Fragment {
 
     private float getCurrentValue() {
         try {
-            float f = Float.valueOf(valueEditor.getText().toString());
+            String s = valueEditor.getText().toString();
+            float f = Float.valueOf(s.replace(",", "."));
             return f;
         } catch (Exception e) {
             e.printStackTrace();
