@@ -22,6 +22,12 @@ import java.util.TimerTask;
 
 import retrofit2.Response;
 
+/**
+ *
+ * this binding service refreshes rates every 30 seconds
+ *
+ */
+
 public class RateRefreshService extends Service {
 
     private static final String TAG = RateRefreshService.class.getSimpleName();

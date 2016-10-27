@@ -4,6 +4,7 @@ package com.wild.currencyexchange.utils;
 
 public class Constants {
 
+    public static final String ENTRY_POINT = "http://www.ecb.int/";
     public static final int REFRESH_TIME_IN_MILLIS = 30*1000;
 
     private Constants() {}

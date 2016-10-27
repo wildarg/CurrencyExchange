@@ -9,6 +9,10 @@ import org.simpleframework.xml.Root;
 
 import java.util.List;
 
+/**
+ *  POJO for parse an xml response
+ *
+ **/
 @Root(name = "gesmes:Envelope", strict=false)
 public class RateDataEntity {
     @Element(name = "Cube")
